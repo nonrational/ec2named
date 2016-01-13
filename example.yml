@@ -1,0 +1,7 @@
+---
+environments:
+  - stage
+  - production
+reject_tag_prefixes:
+  - elasticbeanstalk:environment-id
+  - opsworks

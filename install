@@ -1,0 +1,3 @@
+#!/bin/sh
+rake install
+gem install --local pkg/ec2named-0.1.0.gem -wn `rbenv prefix`/bin

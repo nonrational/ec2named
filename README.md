@@ -1,38 +1,50 @@
 # Ec2named
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ec2named`. To experiment with that code, run `bin/console` for an interactive prompt.
+- A.K.A: _FindMeABoxLike_
 
-TODO: Delete this and the text above, and describe your gem
+Get information (mostly IP addresses) from your EC2 instances quickly.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'ec2named'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Currently, strongly assumes many conventions like `app`, `env`, and `status` tags.
 
     $ gem install ec2named
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Basic
+
+    $ ssh $(ec2named superapp staging)
+
+#### Advanced
+
+```
+$ ec2named -h
+Options:
+  -l, --list          display all matching instances, including those not in-use
+  -v, --verbose       display more instance attributes to stderr in addition to ip
+  -q, --show-query    print the describe-instance query filter in AWS console-friendly format
+  -z, --zombie        display status:zombie instances
+  -x, --statuses      include instances with status not equal to status:in-use
+  -c, --class=<s>     filter on tag:class (e.g. pipeline, labs)
+  -t, --type=<s>      filter on instance-type (e.g. t2.micro, c4.xlarge, m3.medium)
+  -n, --name=<s>      filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)
+  -h, --help          Show this message
+```
+
+    $ ec2named -q myapp stage
+    > tag:env:stage tag:app:myapp tag:status:in-use
+    10.11.147.229
+
+    $ ec2named -q stage myapp
+    > tag:env:stage tag:app:myapp tag:status:in-use
+    10.11.147.229
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ bundle && rake && bundle exec rake install
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/ec2named/fork )
+1. Fork it ( https://github.com/nonrational/ec2named/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
