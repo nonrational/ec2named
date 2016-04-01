@@ -16,7 +16,7 @@ module Ec2named
       add_filter_if_given(:id)
 
       add_raw_tag_filters_if_given
-      add_default_tag_filters unless opts[:env].nil? || opts[:statuses]
+      add_default_tag_filters unless opts[:env].nil? || opts[:"no-default"]
 
       add_filter(Filter.all) if filters.empty?
     end

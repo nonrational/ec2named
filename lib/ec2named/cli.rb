@@ -48,7 +48,7 @@ module Ec2named
         opt :verbose, "display more instance attributes to stderr in addition to ip", short: 'v'
         opt :"show-query", "print the describe-instance query filter", short: 'q'
         opt :debug, "write debug_response.txt for later inspection"
-        opt :"no-filter", "don't apply default filters", short: 'x'
+        opt :"no-default", "don't apply default filters", short: 'x'
 
         opt :tags, "filter on arbitrary tags (e.g. class:pipeline,name:_bastion_)", short: 't', type: String
         opt :name, "filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)", short: 'n', type: String
