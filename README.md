@@ -1,33 +1,54 @@
 # Ec2named
 
-- A.K.A: _FindMeABoxLike_
-
-Get information (mostly IP addresses) from your EC2 instances quickly.
+Get information about your AWS EC2 instances quickly.
 
 Currently, strongly assumes many conventions like `app`, `env`, and `status` tags.
 
+### Installation
+
     $ gem install ec2named
 
-## Usage
+### Usage
 
 #### Basic
 
-    $ ssh $(ec2named superapp staging)
+Connect to the first instance that matches your query. You'll only get an IP address.
+
+    ~$ ec2named staging facerock
+    10.10.10.1
+
+    ~$ ssh $(ec2named facerock staging)
+    Last login: Fri Apr  1 16:53:24 2016 from ip-0-0-0-0.ec2.internal
+
+           __|  __|_  )
+           _|  (     /   Amazon Linux AMI
+          ___|\___|___|
+
+    https://aws.amazon.com/amazon-linux-ami/2016.03-release-notes/
+    No packages needed for security; 1 packages available
+    Run "sudo yum update" to apply all updates.
+    [ec2-user@ip-10-10-10-1 ~]$
 
 #### Advanced
+
+Query based on _lots_ of stuff.
 
 ```
 $ ec2named -h
 Options:
-  -l, --list          display all matching instances, including those not in-use
-  -v, --verbose       display more instance attributes to stderr in addition to ip
-  -q, --show-query    print the describe-instance query filter in AWS console-friendly format
-  -z, --zombie        display status:zombie instances
-  -x, --statuses      include instances with status not equal to status:in-use
-  -c, --class=<s>     filter on tag:class (e.g. pipeline, labs)
-  -t, --type=<s>      filter on instance-type (e.g. t2.micro, c4.xlarge, m3.medium)
-  -n, --name=<s>      filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)
-  -h, --help          Show this message
+  -l, --list            display all matching instances, including those not in-use
+  -v, --verbose         display more instance attributes to stderr in addition to ip
+  -q, --show-query      print the describe-instance query filter
+  -z, --zombie          display status:zombie instances
+  -x, --statuses        include instances with status not equal to status:in-use
+  -d, --debug           write debug_response.txt for later inspection
+  -t, --tags=<s>        filter on arbitrary tags (e.g. class:pipeline,name:_bastion_)
+  -c, --class=<s>       filter on tag:class (e.g. pipeline, labs)
+  -n, --name=<s>        filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)
+  -y, --type=<s>        filter on instance-type (e.g. t2.micro, c4.xlarge, m3.medium)
+  -k, --key-name=<s>    amazon ssh key name (e.g. development, production)
+  -i, --id=<s>          filter on ec2 instance-id
+  -h, --help            Show this message
 ```
 
     $ ec2named -q myapp stage
