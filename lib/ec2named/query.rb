@@ -11,6 +11,7 @@ module Ec2named
 
       add_filter_if_given(:type)
       add_filter_if_given(:key_name)
+      add_filter_if_given(:id)
 
       add_raw_tag_filters_if_given
       add_filter(Filter.tag_status_in_use) unless opts[:env].nil? || opts[:statuses]

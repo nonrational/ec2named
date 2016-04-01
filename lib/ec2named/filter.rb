@@ -10,6 +10,13 @@ module Ec2named
       }
     end
 
+    def self.id(value)
+      {
+        name: "instance-id",
+        values: [value.to_s]
+      }
+    end
+
     def self.key_name(value)
       {
         name: "key-name",
