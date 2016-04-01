@@ -47,7 +47,6 @@ module Ec2named
         opt :list, "display all matching instances, including those not in-use", short: 'l'
         opt :verbose, "display more instance attributes to stderr in addition to ip", short: 'v'
         opt :"show-query", "print the describe-instance query filter", short: 'q'
-        opt :zombie, "display status:zombie instances", short: 'z'
         opt :statuses, "include instances with status not equal to status:in-use", short: 'x'
         opt :debug, "write debug_response.txt for later inspection"
 

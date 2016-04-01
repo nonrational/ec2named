@@ -41,9 +41,5 @@ module Ec2named
     def self.tag_status_in_use
       tag("status", "in-use")
     end
-
-    def self.tag_status_zombie
-      tag("status", "zombie")
-    end
   end
 end

@@ -15,7 +15,6 @@ module Ec2named
 
       add_raw_tag_filters_if_given
       add_filter(Filter.tag_status_in_use) unless opts[:env].nil? || opts[:statuses]
-      add_filter(Filter.tag_status_zombie) if opts[:zombie]
 
       add_filter(Filter.all) if filters.empty?
     end # rubocop:enable
