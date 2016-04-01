@@ -3,21 +3,24 @@
 
 module Ec2named
   class Query
-    def initialize(opts) # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize
+    def initialize(opts)
       @opts = opts
-      @ec2_client = Aws::EC2::Client.new
 
-      [:Name, :env, :app, :class].each { |tag_name| add_tag_filter_if_given(tag_name) }
+      add_tag_filter_if_given(application_tag, :app)
+      add_tag_filter_if_given(environment_tag, :env)
+      add_tag_filter_if_given(:Name, :name)
 
       add_filter_if_given(:type)
       add_filter_if_given(:key_name)
       add_filter_if_given(:id)
 
       add_raw_tag_filters_if_given
-      add_filter(Filter.tag_status_in_use) unless opts[:env].nil? || opts[:statuses]
+      add_default_tag_filters unless opts[:env].nil? || opts[:statuses]
 
       add_filter(Filter.all) if filters.empty?
-    end # rubocop:enable
+    end
+    # rubocop:enable
 
     def result
       @result ||= ec2_client.describe_instances(filters: filters).reservations.map(&:instances).flatten
@@ -43,7 +46,26 @@ module Ec2named
 
     private
 
-    attr_reader :ec2_client, :opts
+    attr_reader :opts
+
+    def application_tag
+      Ec2named.config["application_tag"] || "app"
+    end
+
+    def environment_tag
+      Ec2named.config["environment_tag"] || "env"
+    end
+
+    def add_default_tag_filters
+      default_tag_filters.each { |dtf| add_filter(dtf) }
+    end
+
+    def default_tag_filters
+      @default_tag_filters ||= Ec2named.config["default_tag_filters"].map do |entry|
+        tag_name_value_pair = entry.split(':')
+        Filter.tag(tag_name_value_pair[0], tag_name_value_pair[1])
+      end
+    end
 
     def add_tag_filter_if_given(tag_name, option_name = tag_name.downcase)
       add_filter(Filter.tag(tag_name, opts[option_name])) if opts[option_name]
@@ -60,6 +82,10 @@ module Ec2named
           add_filter(Filter.tag(tag_pair[0], tag_pair[1]))
         end
       end
+    end
+
+    def ec2_client
+      @ec2_client ||= Aws::EC2::Client.new
     end
 
     def filters

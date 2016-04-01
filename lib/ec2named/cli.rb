@@ -51,11 +51,10 @@ module Ec2named
         opt :debug, "write debug_response.txt for later inspection"
 
         opt :tags, "filter on arbitrary tags (e.g. class:pipeline,name:_bastion_)", short: 't', type: String
-        opt :class, "filter on tag:class (e.g. pipeline, labs)", short: 'c', type: String
         opt :name, "filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)", short: 'n', type: String
         opt :type, "filter on instance-type (e.g. t2.micro, c4.xlarge, m3.medium)", short: 'y', type: String
-        opt :key_name, "amazon ssh key name (e.g. development, production)", short: 'k', type: String
         opt :id, "filter on ec2 instance-id", short: 'i', type: String
+        opt :key_name, "filter on amazon ssh key name (e.g. development, production)", short: 'k', type: String
       end
       @opts[:verbose] = true if @opts[:all]
       @opts

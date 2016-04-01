@@ -1,4 +1,6 @@
 ---
+application_tag: 'app'
+environment_tag: 'env'
 environments:
   - stage
   - production

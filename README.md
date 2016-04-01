@@ -2,11 +2,27 @@
 
 Get information about your AWS EC2 instances quickly.
 
-Currently, strongly assumes many conventions like `app`, `env`, and `status` tags.
+Currently, strongly assumes conventions like `app`, `env`, and `status` tags.
 
 ### Installation
 
     $ gem install ec2named
+
+### Configuration
+
+```yaml
+# ~/.ec2named.yml
+application_tag: 'app'
+environment_tag: 'env'
+default_filters:
+  - status:in-use
+environments:
+  - staging
+  - production
+reject_tag_prefixes:
+  - elasticbeanstalk:environment-id
+  - opsworks
+```
 
 ### Usage
 

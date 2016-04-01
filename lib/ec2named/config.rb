@@ -17,7 +17,10 @@ module Ec2named
     def default_config
       {
         "reject_tag_prefixes" => [],
-        "environments" => []
+        "environments" => [],
+        "default_tag_filters" => [],
+        "application_tag" => 'app',
+        "environment_tag" => 'env',
       }
     end
 
