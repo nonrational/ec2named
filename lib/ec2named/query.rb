@@ -63,7 +63,7 @@ module Ec2named
     def default_tag_filters
       @default_tag_filters ||= Ec2named.config["default_tag_filters"].map do |entry|
         tag_name_value_pair = entry.split(':')
-        Filter.tag(tag_name_value_pair[0], tag_name_value_pair[1])
+        Filter.strict_tag(tag_name_value_pair[0], tag_name_value_pair[1])
       end
     end
 

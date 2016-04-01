@@ -31,6 +31,13 @@ module Ec2named
       }
     end
 
+    def self.strict_tag(tag_name, tag_value)
+      {
+        name: "tag:#{tag_name}",
+        values: ["#{tag_value}"]
+      }
+    end
+
     def self.all
       {
         name: "tag:Name",
