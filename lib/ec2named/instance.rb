@@ -3,7 +3,7 @@
 
 module Ec2named
   class Instance
-    attr_reader :id, :type, :name, :status, :ip, :key_name, :launch_time
+    attr_reader :id, :type, :name, :status, :ip, :key_name, :age
 
     def initialize(raw_instance)
       @id = raw_instance.instance_id
@@ -26,7 +26,7 @@ module Ec2named
     private
 
     def verbose_description
-      verbose_description = "\t[#{id}, #{key_name}, #{age_string},"
+      verbose_description = "\t[#{id}, #{key_name}, #{age}, "
 
       common_tags.each_with_index do |tag, i|
         verbose_description += "#{tag[0]}:#{tag[1]}"
