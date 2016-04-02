@@ -4,7 +4,6 @@
 require 'aws-sdk'
 require 'json'
 require 'trollop'
-require 'monkey_patches/io'
 require 'pp'
 require 'yaml'
 require 'time_diff'

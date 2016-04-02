@@ -15,12 +15,14 @@ module Ec2named
     end
 
     def print(verbose)
-      STDOUT.print_flush ip
+      STDOUT.print ip
       if verbose
-        STDERR.print_flush "#{verbose_description}\n"
+        STDERR.print "#{verbose_description}\n"
       else
-        STDOUT.print_flush "\n"
+        STDOUT.print "\n"
       end
+      STDERR.flush
+      STDOUT.flush
     end
 
     private
@@ -46,10 +48,6 @@ module Ec2named
 
     def name
       @name ||= tags["Name"]
-    end
-
-    def status
-      @name ||= tags["status"]
     end
 
     def tags

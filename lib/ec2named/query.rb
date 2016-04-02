@@ -23,7 +23,6 @@ module Ec2named
     # rubocop:enable
 
     def result
-      binding.pry
       @result ||= ec2_client.describe_instances(filters: filters).reservations.map(&:instances).flatten
     end
 

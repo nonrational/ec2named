@@ -10,23 +10,19 @@ describe Ec2named::Instance do
     expect(subject.send(:name)).to eq "staging.sucksrocks"
   end
 
-  it "#status" do
-    expect(subject.send(:status)).to eq nil
-  end
-
   it "#tags" do
     expect(subject.send(:tags)).to match_array([
-      ["Name", "staging.sucksrocks"],
-      ["app", "sucksrocks"],
-      ["env", "staging"]
-    ])
+                                                 ["Name", "staging.sucksrocks"],
+                                                 %w(app sucksrocks),
+                                                 %w(env staging)
+                                               ])
   end
 
   it "#common_tags" do
     expect(subject.send(:common_tags)).to match_array([
-      ["Name", "staging.sucksrocks"],
-      ["app", "sucksrocks"],
-      ["env", "staging"]
-    ])
+                                                        ["Name", "staging.sucksrocks"],
+                                                        %w(app sucksrocks),
+                                                        %w(env staging)
+                                                      ])
   end
 end

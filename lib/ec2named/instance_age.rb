@@ -18,11 +18,11 @@ module Ec2named
     end
 
     def ymw_day
-      @ymw_day ||= year*365 + month*30 + week*7 + day
+      @ymw_day ||= year * 365 + month * 30 + week * 7 + day
     end
 
     def to_s
-      hms = [hour, minute, second].map { |t| sprintf('%02d',t) }
+      hms = [hour, minute, second].map { |t| '%02d' % t }
       hms.unshift(ymw_day) if ymw_day > 0
       hms.join(":")
     end
