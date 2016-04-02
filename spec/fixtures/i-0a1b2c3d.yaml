@@ -1,0 +1,100 @@
+---
+- !ruby/struct:Aws::EC2::Types::Instance
+  instance_id: i-0a1b2c3d
+  image_id: ami-0a1b2c3d
+  state: !ruby/struct:Aws::EC2::Types::InstanceState
+    code: 16
+    name: running
+  private_dns_name: ip-10-11-148-88.ec2.internal
+  public_dns_name: ''
+  state_transition_reason: ''
+  key_name: development
+  ami_launch_index: 0
+  product_codes: []
+  instance_type: m4.large
+  launch_time: 2016-04-02 16:31:36.000000000 Z
+  placement: !ruby/struct:Aws::EC2::Types::Placement
+    availability_zone: us-east-1c
+    group_name: ''
+    tenancy: default
+    host_id:
+    affinity:
+  kernel_id:
+  ramdisk_id:
+  platform:
+  monitoring: !ruby/struct:Aws::EC2::Types::Monitoring
+    state: disabled
+  subnet_id: subnet-0a1b2c3d
+  vpc_id: vpc-0a1b2c3d
+  private_ip_address: 10.11.148.88
+  public_ip_address:
+  state_reason:
+  architecture: x86_64
+  root_device_type: ebs
+  root_device_name: "/dev/xvda"
+  block_device_mappings:
+  - !ruby/struct:Aws::EC2::Types::InstanceBlockDeviceMapping
+    device_name: "/dev/xvda"
+    ebs: !ruby/struct:Aws::EC2::Types::EbsInstanceBlockDevice
+      volume_id: vol-0a1b2c3d
+      status: attached
+      attach_time: 2016-04-02 16:31:37.000000000 Z
+      delete_on_termination: true
+  virtualization_type: hvm
+  instance_lifecycle:
+  spot_instance_request_id:
+  client_token: ''
+  tags:
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: app
+    value: sucksrocks
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: class
+    value: pipeline
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: env
+    value: stage
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: Name
+    value: stage.pipeline.sucksrocks
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: status
+    value: in-use
+  security_groups:
+  - !ruby/struct:Aws::EC2::Types::GroupIdentifier
+    group_name: application
+    group_id: sg-0a1b2c3d
+  source_dest_check: true
+  hypervisor: xen
+  network_interfaces:
+  - !ruby/struct:Aws::EC2::Types::InstanceNetworkInterface
+    network_interface_id: eni-0a1b2c3d
+    subnet_id: subnet-0a1b2c3d
+    vpc_id: vpc-0a1b2c3d
+    description: ''
+    owner_id: '000000000001'
+    status: in-use
+    mac_address: 0e:f6:d8:29:54:bd
+    private_ip_address: 10.11.148.88
+    private_dns_name: ip-10-11-148-88.ec2.internal
+    source_dest_check: true
+    groups:
+    - !ruby/struct:Aws::EC2::Types::GroupIdentifier
+      group_name: application
+      group_id: sg-0a1b2c3d
+    attachment: !ruby/struct:Aws::EC2::Types::InstanceNetworkInterfaceAttachment
+      attachment_id: eni-attach-0a1b2c3d
+      device_index: 0
+      status: attached
+      attach_time: 2016-04-02 16:31:36.000000000 Z
+      delete_on_termination: true
+    association:
+    private_ip_addresses:
+    - !ruby/struct:Aws::EC2::Types::InstancePrivateIpAddress
+      private_ip_address: 10.11.148.88
+      private_dns_name: ip-10-11-148-88.ec2.internal
+      primary: true
+      association:
+  iam_instance_profile:
+  ebs_optimized: false
+  sriov_net_support:
