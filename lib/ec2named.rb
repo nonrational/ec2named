@@ -7,11 +7,13 @@ require 'trollop'
 require 'monkey_patches/io'
 require 'pp'
 require 'yaml'
+require 'time_diff'
 
 require "ec2named/version"
 require "ec2named/config"
 require "ec2named/filter"
 require "ec2named/instance"
+require "ec2named/instance_age"
 require "ec2named/query"
 require "ec2named/cli"
 

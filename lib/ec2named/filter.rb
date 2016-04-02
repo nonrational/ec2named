@@ -34,7 +34,7 @@ module Ec2named
     def self.strict_tag(tag_name, tag_value)
       {
         name: "tag:#{tag_name}",
-        values: ["#{tag_value}"]
+        values: [tag_value.to_s]
       }
     end
 

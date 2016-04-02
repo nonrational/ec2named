@@ -20,7 +20,7 @@ module Ec2named
         "environments" => [],
         "default_tag_filters" => [],
         "application_tag" => 'app',
-        "environment_tag" => 'env',
+        "environment_tag" => 'env'
       }
     end
 

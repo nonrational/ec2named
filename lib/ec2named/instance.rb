@@ -3,13 +3,14 @@
 
 module Ec2named
   class Instance
-    attr_reader :id, :type, :name, :status, :ip, :key_name
+    attr_reader :id, :type, :name, :status, :ip, :key_name, :launch_time
 
     def initialize(raw_instance)
       @id = raw_instance.instance_id
       @type = raw_instance.instance_type
       @ip = first_private_ip(raw_instance) || "(#{raw_instance.state.name})"
       @key_name = raw_instance.key_name
+      @age = InstanceAge.new(raw_instance.launch_time)
       raw_instance.tags.each { |tag| tags[tag.key] = tag.value }
     end
 
@@ -25,7 +26,7 @@ module Ec2named
     private
 
     def verbose_description
-      verbose_description = "\t[#{id}, #{key_name}, "
+      verbose_description = "\t[#{id}, #{key_name}, #{age_string},"
 
       common_tags.each_with_index do |tag, i|
         verbose_description += "#{tag[0]}:#{tag[1]}"
