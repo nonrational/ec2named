@@ -1,3 +1,2 @@
 #!/bin/sh
-
 bundle exec bin/ec2named $@
