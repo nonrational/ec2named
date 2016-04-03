@@ -22,7 +22,7 @@ module Ec2named
     end
 
     def to_s
-      hms = [hour, minute, second].map { |t| '%02d' % t }
+      hms = [hour, minute, second].map { |t| format('%02d', t) }
       hms.unshift(ymw_day) if ymw_day > 0
       hms.join(":")
     end

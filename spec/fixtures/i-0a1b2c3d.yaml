@@ -54,6 +54,9 @@
   - !ruby/struct:Aws::EC2::Types::Tag
     key: Name
     value: staging.sucksrocks
+  - !ruby/struct:Aws::EC2::Types::Tag
+    key: opsworks
+    value: 'did this'
   security_groups:
   - !ruby/struct:Aws::EC2::Types::GroupIdentifier
     group_name: application
