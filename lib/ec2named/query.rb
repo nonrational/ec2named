@@ -26,10 +26,8 @@ module Ec2named
       @result ||= ec2_client.describe_instances(filters: filters).reservations.map(&:instances).flatten
     end
 
-    def save_result_to_file(filename = "debug_response.txt")
-      File.open(filename, "w") do |f|
-        PP.pp(result.map { |o| Hash[o.each_pair.to_a] }, f)
-      end
+    def save_result_to_file(filename = "debug_response.yaml")
+      File.write(filename, YAML.dump(result))
     end
 
     def instances
