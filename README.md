@@ -55,15 +55,13 @@ Options:
   -l, --list            display all matching instances, including those not in-use
   -v, --verbose         display more instance attributes to stderr in addition to ip
   -q, --show-query      print the describe-instance query filter
-  -z, --zombie          display status:zombie instances
-  -x, --statuses        include instances with status not equal to status:in-use
   -d, --debug           write debug_response.txt for later inspection
+  -x, --no-default      don't apply default filters
   -t, --tags=<s>        filter on arbitrary tags (e.g. class:pipeline,name:_bastion_)
-  -c, --class=<s>       filter on tag:class (e.g. pipeline, labs)
   -n, --name=<s>        filter on tag:Name, using _ for wildcard (e.g. jenkins_, _standby, _labs_)
   -y, --type=<s>        filter on instance-type (e.g. t2.micro, c4.xlarge, m3.medium)
-  -k, --key-name=<s>    amazon ssh key name (e.g. development, production)
   -i, --id=<s>          filter on ec2 instance-id
+  -k, --key-name=<s>    filter on amazon ssh key name (e.g. development, production)
   -h, --help            Show this message
 ```
 
