@@ -90,6 +90,11 @@ $ ec2named -t process:web,app:facerock -lvq
 10.99.1.184 [i-abcdef03, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
 10.99.1.185 [i-abcdef04, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
 10.99.1.127 [i-abcdef07, development, 10:59:21, app:facerock, env:staging, process:web, status:in-use]
+
+# get the ip of a production box, running a web-worker, on a specific git commit
+$ ec2named -q -t git_commit:c95_,process:web,env:prod_
+> limit:1 tag:git_commit:c95* tag:process:web tag:env:prod*
+10.11.11.123
 ~~~
 
 ## Development
