@@ -10,10 +10,7 @@ module Ec2named
     def run
       STDERR.puts query_str if opts[:"show-query"]
 
-      unless query.errors.empty?
-        query.errors.each { |msg| STDERR.puts(msg) }
-        return
-      end
+      must_have_a_valid_query!
 
       instances = query.instances
       return unless instances.any?
@@ -31,6 +28,13 @@ module Ec2named
 
     def query
       @query ||= Ec2named::Query.new(query_args)
+    end
+
+    def must_have_a_valid_query!
+      unless query.errors.empty?
+        query.errors.each { |msg| STDERR.puts(msg) }
+        exit
+      end
     end
 
     def environments
@@ -82,7 +86,7 @@ module Ec2named
     end
 
     def wildcard_keys(tag_spec)
-      k,v = tag_spec.split(':')
+      k, v = tag_spec.split(':')
       [k, v.gsub(/_+/, '*')].join(':')
     end
 

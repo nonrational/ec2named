@@ -3,7 +3,7 @@
 
 module Ec2named
   class Query
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     def initialize(opts)
       @opts = opts
       validate_aws_env

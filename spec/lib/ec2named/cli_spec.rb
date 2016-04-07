@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Ec2named::CLI do
-  ARGV = []
+  ARGV = [] # rubocop:disable Style/MutableConstant
   subject { Ec2named::CLI.new }
   let(:default_config) { Ec2named::Config.new.load }
   before { Ec2named.instance_variable_set(:@config, default_config) }
