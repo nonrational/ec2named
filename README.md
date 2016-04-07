@@ -1,8 +1,8 @@
 # Ec2named
 
-Get information about your AWS EC2 instances quickly.
+Get information &mdash; mostly private IP addresses &mdash; about your AWS EC2 instances quickly.
 
-Currently, strongly assumes conventions like `app`, `env`, and `status` tags.
+By default, assumes tagging conventions like `app` and `env`, but these are configurable.
 
 ### Installation
 
@@ -14,11 +14,18 @@ Currently, strongly assumes conventions like `app`, `env`, and `status` tags.
 # ~/.ec2named.yml
 application_tag: 'app'
 environment_tag: 'env'
+
+# By default, all queries will have these tag filters applied.
 default_filters:
   - status:in-use
+  - color:blue
+
+# Provide all the values that can go in the `environment_tag` specified above.
 environments:
   - staging
   - production
+
+# All tags beginning with these strings will be excluded in verbose output.
 reject_tag_prefixes:
   - elasticbeanstalk:environment-id
   - opsworks
@@ -45,9 +52,9 @@ Connect to the first instance that matches your query. You'll only get an IP add
     Run "sudo yum update" to apply all updates.
     [ec2-user@ip-10-10-10-1 ~]$
 
-#### Advanced
+Note that because you provided `environments` in your config file, `ec2named facerock staging` and `ec2named staging facerock` behave identically.
 
-Query based on _lots_ of stuff.
+#### Advanced
 
 ```
 $ ec2named -h
@@ -84,7 +91,7 @@ $ ec2named -lx | wc -l
 $ ec2named -t process:web,app:facerock -lvq
 > tag:process:*web*
 10.99.1.83  [i-abcdef01, development, 11:00:25, app:facerock, env:staging, process:web, status:in-use]
-10.99.1.69  [i-abcdef02, development, 4:18:21:47, app:facerock, env:demo, process:web, status:in-use]
+10.99.1.69  [i-abcdef02, trial, 4:18:21:47, app:facerock, env:trial, process:web, status:in-use]
 10.99.1.184 [i-abcdef03, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
 10.99.1.185 [i-abcdef04, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
 10.99.1.127 [i-abcdef07, development, 10:59:21, app:facerock, env:staging, process:web, status:in-use]
