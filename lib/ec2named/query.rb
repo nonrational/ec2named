@@ -77,7 +77,7 @@ module Ec2named
       if opts[:tags_given]
         opts[:tags].split(',').each do |tag_spec|
           tag_pair = tag_spec.split(':')
-          add_filter(Filter.tag(tag_pair[0], tag_pair[1]))
+          add_filter(Filter.strict_tag(tag_pair[0], tag_pair[1]))
         end
       end
     end

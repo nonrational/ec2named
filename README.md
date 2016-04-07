@@ -67,13 +67,30 @@ Options:
   -h, --help            Show this message
 ```
 
-    $ ec2named -q myapp stage
-    > tag:env:stage tag:app:myapp tag:status:in-use
-    10.11.147.229
+##### Examples
 
-    $ ec2named -q stage myapp
-    > tag:env:stage tag:app:myapp tag:status:in-use
-    10.11.147.229
+~~~bash
+$ ec2named -q myapp stage
+> tag:env:stage tag:app:myapp tag:status:in-use
+10.11.147.229
+
+$ ec2named -q stage myapp
+> tag:env:stage tag:app:myapp tag:status:in-use
+10.11.147.229
+
+# count total number of instances
+$ ec2named -lx | wc -l
+220
+
+# show all machines with tag process:web
+$ ec2named -t process:web,app:facerock -lvq
+> tag:process:*web*
+10.99.1.83  [i-abcdef01, development, 11:00:25, app:facerock, env:staging, process:web, status:in-use]
+10.99.1.69  [i-abcdef02, development, 4:18:21:47, app:facerock, env:demo, process:web, status:in-use]
+10.99.1.184 [i-abcdef03, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
+10.99.1.185 [i-abcdef04, production, 16:52:18, app:facerock, env:production, process:web, status:in-use]
+10.99.1.127 [i-abcdef07, development, 10:59:21, app:facerock, env:staging, process:web, status:in-use]
+~~~
 
 ## Development
 

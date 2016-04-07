@@ -62,7 +62,22 @@ module Ec2named
 
     def query_args
       @query_args = opts.merge(parse_argv)
-      @query_args = @query_args.each { |key, val| @query_args[key] = val.tr('_', '*') if val.is_a? String }
+      @query_args = @query_args.each do |key, val|
+        @query_args[key] = underscores_are_wild(key, val) if val.is_a?(String)
+      end
+    end
+
+    def underscores_are_wild(key, value)
+      if key == :tags
+        value.split(',').map { |tag_spec| wildcard_keys(tag_spec) }.join(',')
+      else
+        value.gsub(/_+/, '*')
+      end
+    end
+
+    def wildcard_keys(tag_spec)
+      k,v = tag_spec.split(':')
+      [k, v.gsub(/_+/, '*')].join(':')
     end
 
     def parse_argv

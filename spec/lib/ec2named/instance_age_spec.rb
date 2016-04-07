@@ -7,14 +7,16 @@ describe Ec2named::InstanceAge do
   after { Timecop.return }
 
   it "calculates age components" do
-    expect(subject.time_diff).to eq(year: 2,
-                                    month: 0,
-                                    week: 1,
-                                    day: 3,
-                                    hour: 12,
-                                    minute: 4,
-                                    second: 3,
-                                    diff: "2 years, 1 week, 3 days and 12:04:03")
+    expect(subject.time_diff).to eq(
+      year: 2,
+      month: 0,
+      week: 1,
+      day: 3,
+      hour: 12,
+      minute: 4,
+      second: 3,
+      diff: "2 years, 1 week, 3 days and 12:04:03"
+    )
   end
 
   it "displays like a stopwatch with years/months/weeks as days" do
