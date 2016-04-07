@@ -9,6 +9,12 @@ module Ec2named
 
     def run
       STDERR.puts query_str if opts[:"show-query"]
+
+      unless query.errors.empty?
+        query.errors.each { |msg| STDERR.puts(msg) }
+        return
+      end
+
       instances = query.instances
       return unless instances.any?
 

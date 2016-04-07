@@ -97,7 +97,7 @@ $ ec2named -q -t git_commit:c95_,process:web,env:prod_
 
 ## Development
 
-    $ bundle && rake && bundle exec rake install
+    $ bundle && bundle exec rake
 
 ## Contributing
 

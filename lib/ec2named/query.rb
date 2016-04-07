@@ -6,6 +6,7 @@ module Ec2named
     # rubocop:disable Metrics/AbcSize
     def initialize(opts)
       @opts = opts
+      validate_aws_env
 
       add_tag_filter_if_given(application_tag, :app)
       add_tag_filter_if_given(environment_tag, :env)
@@ -40,6 +41,10 @@ module Ec2named
 
     def filters_str
       filters.map { |f| "#{f[:name]}:#{f[:values].join('|')}" }.join(" ").to_s
+    end
+
+    def errors
+      @errors ||= []
     end
 
     private
@@ -80,6 +85,11 @@ module Ec2named
           add_filter(Filter.strict_tag(tag_pair[0], tag_pair[1]))
         end
       end
+    end
+
+    def validate_aws_env
+      errors << "Please provide AWS_REGION or AWS_DEFAULT_REGION" unless ENV['AWS_REGION'] || ENV['AWS_DEFAULT_REGION']
+      errors << "Please provide AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY" unless ENV['AWS_SECRET_ACCESS_KEY'] && ENV['AWS_ACCESS_KEY_ID']
     end
 
     def ec2_client
