@@ -18,6 +18,14 @@ module Ec2named
       query.save_result_to_file if opts[:debug]
 
       display instances
+
+      if opts[:connect]
+        instances.first.tap do |inst|
+          system(p "ssh #{username}@#{inst.ip}")
+        end
+      end
+
+      0
     end
 
     private
@@ -35,6 +43,10 @@ module Ec2named
         query.errors.each { |msg| STDERR.puts(msg) }
         exit
       end
+    end
+
+    def username
+      Ec2named.config["username"]
     end
 
     def environments
@@ -55,6 +67,7 @@ module Ec2named
     def opts
       @opts ||= Trollop.options do
         opt :list, "display all matching instances, including those not in-use", short: 'l'
+        opt :connect, "attempt to connect to the given instance via ssh", short: 'c'
         opt :verbose, "display more instance attributes to stderr in addition to ip", short: 'v'
         opt :"show-query", "print the describe-instance query filter", short: 'q'
         opt :debug, "write debug_response.txt for later inspection"
