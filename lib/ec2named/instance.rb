@@ -11,6 +11,7 @@ module Ec2named
       @ip = first_private_ip(raw_instance) || "(#{raw_instance.state.name})"
       @key_name = raw_instance.key_name
       @age = InstanceAge.new(raw_instance.launch_time)
+      @username = "ec2-user"
       raw_instance.tags.each { |tag| tags[tag.key] = tag.value }
     end
 

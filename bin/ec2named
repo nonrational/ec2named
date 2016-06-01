@@ -21,7 +21,4 @@ if ARGV.empty?
   exit(1)
 end
 
-Ec2named::CLI.new.run
-
-result = 0
-exit result
+exit Ec2named::CLI.new.run

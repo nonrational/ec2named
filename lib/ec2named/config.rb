@@ -16,12 +16,17 @@ module Ec2named
 
     def default_config
       {
+        "username" => local_user,
         "reject_tag_prefixes" => [],
         "environments" => [],
         "default_tag_filters" => [],
         "application_tag" => 'app',
         "environment_tag" => 'env'
       }
+    end
+
+    def local_user
+      @local_user ||= `whoami`.chomp
     end
 
     def load_paths
