@@ -9,33 +9,29 @@ module Ec2named
 
     def run
       STDERR.puts query_str if opts[:"show-query"]
-
       must_have_a_valid_query!
 
       instances = query.instances
       return unless instances.any?
 
-      query.save_result_to_file if opts[:debug]
-
       display instances
-
-      if opts[:connect]
-        instances.first.tap do |inst|
-          system(p "ssh #{username}@#{inst.ip}")
-        end
-      end
+      connect_to(instances.first) if opts[:connect]
 
       0
     end
 
     private
 
+    def connect_to(instance)
+      system(p("ssh #{username}@#{instance.ip}"))
+    end
+
     def query_str
       (opts[:list] ? ">" : "> limit:1") + " #{query.filters_str}"
     end
 
     def query
-      @query ||= Ec2named::Query.new(query_args)
+      @query ||= Ec2named::Query.new(query_args).tap { |query| query.save_result_to_file if opts[:debug] }
     end
 
     def must_have_a_valid_query!
